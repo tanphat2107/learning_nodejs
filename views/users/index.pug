@@ -1,15 +1,14 @@
-h1 trang user
+extends ../layout/common
 
-a(href="/users/create") tao moi 
+block content
+    h1 trang user
+    a(href="/users/create" ) tao moi 
+    form(action="/users/search" method="GET")
+        input( type="text" name="q")
+        button Search
+    ul
+        each user in users 
+            li
+                a(href="/users/"+ user.id) id &nbsp
+                span= user.name
 
-form(action="/users/search", method="GET")
-    input( type="text",  name="q")
-    button Search
-
-ul
-    each user in users 
-        li
-            a(href="/users/"+ user.id) id &nbsp
-            span= user.name
-            
-        
