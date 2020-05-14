@@ -9,7 +9,7 @@ module.exports.index = function(req, res) {
 module.exports.search = function(req, res) {
     var q = req.query.q;
     var theMatchedCase = db.get('users').value().filter(function(user) {
-        return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+        return users.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
     });
     res.render('users/index', {
         users: theMatchedCase
@@ -31,6 +31,22 @@ module.exports.getId = function(req, res) {
 
 module.exports.postCreate = function(req, res) {
     req.body.id = shortid.generate();
+    //xac thuc
+    var errs = [];
+    if (!req.body.name) {
+        errs.push('Name is require');
+    }
+    if (!req.body.phone) {
+        errs.push('Phone is require');
+    }
+    if (errs.length) {
+        res.render('users/create', {
+            errs: errs
+        });
+        return;
+    }
+
+    // het code xac thuc
     db.get('users').push(req.body).write();
     res.redirect('/users');
 }

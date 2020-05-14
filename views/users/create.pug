@@ -2,8 +2,15 @@ extends ../layout/common
 
 block content
     h1 Create User
-    form(method="POST") tao moi 
 
-        label name
-        input( type="text" name="name")
+    if(errs)
+        each err in errs
+            .alert.alert-danger= err
+
+    form(method="POST")
+
+        label Name
+        input( type="text" name="name" value=values?values.name : "")
+        label Phone
+        input( type="text" name="phone")
         button Tạo
